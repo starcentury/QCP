@@ -15,6 +15,7 @@ namespace QCP
         static void Main()
         {
             //测试
+            //2013-11-29提交
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
