@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace QCP
+namespace QCP.Center
 {
     static class Program
     {
@@ -14,9 +14,6 @@ namespace QCP
         [STAThread]
         static void Main()
         {
-            //测试
-            //2013-11-29提交
-            //Submit by Lu
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

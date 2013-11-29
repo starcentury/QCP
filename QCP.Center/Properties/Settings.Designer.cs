@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace QCP.Properties
+namespace QCP.Center.Properties
 {
 
 
