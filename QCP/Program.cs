@@ -16,6 +16,7 @@ namespace QCP
         {
             //测试
             //2013-11-29提交
+            //Submit by Lu
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
