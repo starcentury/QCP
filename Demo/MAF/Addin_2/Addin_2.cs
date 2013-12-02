@@ -11,6 +11,7 @@ namespace MAF
     [AddIn("Addin_2", Description = "this is Addin_2", Publisher = "Addin_2", Version = "1.0")]
     public class Addin_2 : AddinSideView
     {
+        //测试
         public string Say()
         {
             return "Addin_2";
