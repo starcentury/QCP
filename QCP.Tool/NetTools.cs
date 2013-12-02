@@ -23,28 +23,12 @@ namespace QCP.Tool
 
         public static IPAddress GetFirstIPV4()
         {
-            IPAddress[] ips = GetLocalIP();
-            foreach (IPAddress ip in ips)
-            {
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
-                    continue;
-                return ip;
-            }
-
-            return null;
+            return GetLocalIP().Where(e => e.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault();
         }
 
         public static IPAddress GetFirstIPV6()
         {
-            IPAddress[] ips = GetLocalIP();
-            foreach (IPAddress ip in ips)
-            {
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                    continue;
-                return ip;
-            }
-
-            return null;
+            return GetLocalIP().Where(e => e.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6).FirstOrDefault();
         }
     }
 }
