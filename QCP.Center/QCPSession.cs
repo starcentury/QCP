@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QCP.Center.Server
+namespace QCP.Center
 {
     public class QCPSession : AppSession<QCPSession>
     {

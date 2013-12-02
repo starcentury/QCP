@@ -1,12 +1,13 @@
-﻿using System;
+﻿using SuperSocket.SocketBase;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QCP.Center.Server
+namespace QCP.Center
 {
-    public class Center
+    public class QCPServer : AppServer<QCPSession>
     {
     }
 }
