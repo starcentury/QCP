@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace QCP.Center
 {
-    public partial class Form1 : Form
+    public partial class ServerController : Form
     {
-        public Form1()
+        public ServerController()
         {
             InitializeComponent();
         }
