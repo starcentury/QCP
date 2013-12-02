@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QCP.Center
+namespace QCP.Server
 {
-    public class QCPSession : WebSocketSession<QCPSession>
+    public class LocalServerSession : WebSocketSession<LocalServerSession>
     {
         protected override void OnSessionStarted()
         {
-            base.OnSessionStarted();            
+            base.OnSessionStarted();
         }
     }
 }

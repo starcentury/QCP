@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QCP.Center
+namespace QCP.Server
 {
-    public class QCPServer : WebSocketServer<QCPSession>
+    public class LocalServer : WebSocketServer<LocalServerSession>
     {
     }
 }
