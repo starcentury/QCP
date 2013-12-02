@@ -44,11 +44,9 @@
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageController = new System.Windows.Forms.TabPage();
             this.tabPageServerInfo = new System.Windows.Forms.TabPage();
-            this.labelPort = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.labelIPV6 = new System.Windows.Forms.Label();
             this.labelIPV4 = new System.Windows.Forms.Label();
             this.labelHostName = new System.Windows.Forms.Label();
@@ -79,7 +77,7 @@
             // 
             this.buttonStart.Enabled = false;
             this.buttonStart.Image = global::QCP.Center.Properties.Resources.media_controls_dark_play;
-            this.buttonStart.Location = new System.Drawing.Point(6, 6);
+            this.buttonStart.Location = new System.Drawing.Point(176, 311);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(32, 32);
             this.buttonStart.TabIndex = 0;
@@ -91,7 +89,7 @@
             // 
             this.buttonStop.Enabled = false;
             this.buttonStop.Image = global::QCP.Center.Properties.Resources.media_controls_dark_stop;
-            this.buttonStop.Location = new System.Drawing.Point(44, 6);
+            this.buttonStop.Location = new System.Drawing.Point(214, 311);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(32, 32);
             this.buttonStop.TabIndex = 2;
@@ -115,13 +113,13 @@
             this.toolStripSeparator1,
             this.closeToolStripMenuItem});
             this.contextMenuStripNotifyIcon.Name = "contextMenuStripNotifyIcon";
-            this.contextMenuStripNotifyIcon.Size = new System.Drawing.Size(153, 98);
+            this.contextMenuStripNotifyIcon.Size = new System.Drawing.Size(109, 76);
             // 
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Image = global::QCP.Center.Properties.Resources.media_controls_dark_play;
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
@@ -130,19 +128,19 @@
             this.stopToolStripMenuItem.Enabled = false;
             this.stopToolStripMenuItem.Image = global::QCP.Center.Properties.Resources.media_controls_dark_stop;
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(105, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -170,11 +168,9 @@
             // 
             // tabPageServerInfo
             // 
-            this.tabPageServerInfo.Controls.Add(this.labelPort);
             this.tabPageServerInfo.Controls.Add(this.label2);
             this.tabPageServerInfo.Controls.Add(this.label4);
             this.tabPageServerInfo.Controls.Add(this.label3);
-            this.tabPageServerInfo.Controls.Add(this.label1);
             this.tabPageServerInfo.Controls.Add(this.labelIPV6);
             this.tabPageServerInfo.Controls.Add(this.labelIPV4);
             this.tabPageServerInfo.Controls.Add(this.labelHostName);
@@ -185,13 +181,6 @@
             this.tabPageServerInfo.TabIndex = 1;
             this.tabPageServerInfo.Text = "ServerInfo";
             this.tabPageServerInfo.UseVisualStyleBackColor = true;
-            // 
-            // labelPort
-            // 
-            this.labelPort.Location = new System.Drawing.Point(74, 80);
-            this.labelPort.Name = "labelPort";
-            this.labelPort.Size = new System.Drawing.Size(170, 23);
-            this.labelPort.TabIndex = 4;
             // 
             // label2
             // 
@@ -219,15 +208,6 @@
             this.label3.Size = new System.Drawing.Size(47, 12);
             this.label3.TabIndex = 3;
             this.label3.Text = "IP(V4):";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 80);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 12);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Port:";
             // 
             // labelIPV6
             // 
@@ -297,8 +277,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label labelPort;
         private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;

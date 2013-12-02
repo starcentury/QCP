@@ -92,8 +92,7 @@ namespace QCP.Center
             this.labelHostName.Text = QCP.Tool.NetTools.GetHostName();//机器名
             this.labelIPV4.Text = QCP.Tool.NetTools.GetFirstIPV4().ToString();//IPV4地址
             this.labelIPV6.Text = QCP.Tool.NetTools.GetFirstIPV6().ToString();//IPV6地址
-            this.labelPort.Text = QCP.Center.Properties.Settings.Default.Port.ToString();//端口,此设置在配置文件中设置.
-
+            
             this.buttonStart.Enabled = true;
         }
 
