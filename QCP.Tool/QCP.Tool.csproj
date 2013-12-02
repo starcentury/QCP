@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -39,6 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\BusinessException.cs" />
+    <Compile Include="Base\ComponentException.cs" />
+    <Compile Include="Base\DataAccessException.cs" />
+    <Compile Include="Base\EntityBase.cs" />
+    <Compile Include="Base\ExceptionMessage.cs" />
+    <Compile Include="Base\PropertySortCondition.cs" />
+    <Compile Include="Extensions\CollectionExtensions.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Helper\CombHelper.cs" />
+    <Compile Include="Helper\PublicHelper.cs" />
+    <Compile Include="Helper\StringHelper.cs" />
     <Compile Include="NetTools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
