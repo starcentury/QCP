@@ -113,6 +113,16 @@ namespace QCP.Center.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap play_1_ {
+            get {
+                object obj = ResourceManager.GetObject("play(1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap play_alt {
             get {
                 object obj = ResourceManager.GetObject("play_alt", resourceCulture);
@@ -126,6 +136,26 @@ namespace QCP.Center.Properties {
         internal static System.Drawing.Bitmap stop {
             get {
                 object obj = ResourceManager.GetObject("stop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap stop_2_ {
+            get {
+                object obj = ResourceManager.GetObject("stop(2)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap stop_3_ {
+            get {
+                object obj = ResourceManager.GetObject("stop(3)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

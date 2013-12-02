@@ -115,6 +115,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Logo.ico" />
+    <None Include="Resources\play%281%29.png" />
+    <None Include="Resources\stop%283%29.png" />
+    <None Include="Resources\stop%282%29.png" />
     <None Include="Resources\media_controls_dark_play.png" />
     <None Include="Resources\media_controls_dark_stop.png" />
     <None Include="Resources\play.png" />

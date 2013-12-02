@@ -44,6 +44,12 @@ namespace QCP.Center
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (IsRunning)
+            {
+                MessageBox.Show("Please stop the server first!", QCP.Center.Properties.Settings.Default.AppName, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return;
+            }
+
             if (MessageBox.Show("Are you sure to exit?", QCP.Center.Properties.Settings.Default.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
                 IsClosed = true;
@@ -90,6 +96,7 @@ namespace QCP.Center
         private void LoadServerInfo()
         {
             this.labelHostName.Text = QCP.Tool.NetTools.GetHostName();//机器名
+            this.toolStripStatusLabelHostName.Text = QCP.Tool.NetTools.GetHostName();//机器名
             this.labelIPV4.Text = QCP.Tool.NetTools.GetFirstIPV4().ToString();//IPV4地址
             this.labelIPV6.Text = QCP.Tool.NetTools.GetFirstIPV6().ToString();//IPV6地址
             
