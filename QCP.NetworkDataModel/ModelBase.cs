@@ -10,19 +10,66 @@ namespace QCP.NetworkDataModel
 {
     [Serializable]
     public class ModelBase
-    {
-        public string ToJson()
+    {       
+        /// <summary>
+        /// 唯一标示
+        /// </summary>
+        public string ID { get; set; }
+
+        /// <summary>
+        /// 网络连接的ID
+        /// </summary>
+        public string SessionID { get; set; } 
+    
+        /// <summary>
+        /// 所属类别,用于标示模型所属的类别
+        /// </summary>
+        public CategoryType Category { get; set; }
+        
+        /// <summary>
+        /// 所属类别的枚举
+        /// </summary>
+        public enum CategoryType
         {
-            return JsonConvert.SerializeObject(this);
+            Client = 0,
+            Server = 1,
         }
 
+        /// <summary>
+        /// 将对象转换成Json方法
+        /// </summary>
+        /// <returns></returns>
+        public string ToJson()
+        {
+            try
+            {
+                return JsonConvert.SerializeObject(this);
+            }
+            catch
+            {
+                return null;
+            }
+            
+        }
+
+        /// <summary>
+        /// 将对象转换成byte[]的方法
+        /// </summary>
+        /// <returns></returns>
         public byte[] ToBytes()
         {
-            using (MemoryStream ms = new MemoryStream())
+            try
             {
-                IFormatter formatter = new BinaryFormatter();
-                formatter.Serialize(ms, this);
-                return ms.GetBuffer();
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    IFormatter formatter = new BinaryFormatter();
+                    formatter.Serialize(ms, this);
+                    return ms.GetBuffer();
+                }
+            }
+            catch
+            {
+                return null;
             }
         }
     }

@@ -56,6 +56,9 @@
             this.labelIPV4 = new System.Windows.Forms.Label();
             this.labelHostName = new System.Windows.Forms.Label();
             this.tabPageAbout = new System.Windows.Forms.TabPage();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.statusStripMain.SuspendLayout();
             this.contextMenuStripNotifyIcon.SuspendLayout();
             this.tabControlMain.SuspendLayout();
@@ -128,13 +131,13 @@
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.contextMenuStripNotifyIcon.Name = "contextMenuStripNotifyIcon";
-            this.contextMenuStripNotifyIcon.Size = new System.Drawing.Size(153, 98);
+            this.contextMenuStripNotifyIcon.Size = new System.Drawing.Size(104, 76);
             // 
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Image = global::QCP.Center.Properties.Resources.media_controls_dark_play;
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
@@ -143,19 +146,19 @@
             this.stopToolStripMenuItem.Enabled = false;
             this.stopToolStripMenuItem.Image = global::QCP.Center.Properties.Resources.media_controls_dark_stop;
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(100, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -216,11 +219,16 @@
             // 
             // listViewServers
             // 
+            this.listViewServers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3});
             this.listViewServers.Location = new System.Drawing.Point(6, 6);
             this.listViewServers.Name = "listViewServers";
             this.listViewServers.Size = new System.Drawing.Size(240, 337);
             this.listViewServers.TabIndex = 0;
             this.listViewServers.UseCompatibleStateImageBehavior = false;
+            this.listViewServers.View = System.Windows.Forms.View.Details;
             // 
             // tabPageServerInfo
             // 
@@ -296,6 +304,20 @@
             this.tabPageAbout.Text = "About";
             this.tabPageAbout.UseVisualStyleBackColor = true;
             // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "*";
+            this.columnHeader1.Width = 20;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "ID";
+            this.columnHeader2.Width = 150;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Online";
+            // 
             // ServerController
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -354,5 +376,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPageServers;
         private System.Windows.Forms.ListView listViewServers;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
     }
 }

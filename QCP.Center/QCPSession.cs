@@ -12,7 +12,7 @@ namespace QCP.Center
     {
         protected override void OnSessionStarted()
         {
-            base.OnSessionStarted();            
+            base.OnSessionStarted();
         }
     }
 }

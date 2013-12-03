@@ -1,4 +1,5 @@
-﻿using SuperSocket.SocketBase;
+﻿using Newtonsoft.Json;
+using SuperSocket.SocketBase;
 using SuperSocket.SocketEngine;
 using System;
 using System.Collections.Generic;
@@ -68,7 +69,30 @@ namespace QCP.Server
 
         void iWebSocketClient_MessageReceived(object sender, MessageReceivedEventArgs e)
         {
-            
+            QCP.NetworkDataModel.ModelBase model = JsonConvert.DeserializeObject<NetworkDataModel.ModelBase>(e.Message);
+
+            switch (model.Category)
+            {
+                case NetworkDataModel.ModelBase.CategoryType.Client:                    
+                    break;
+                case NetworkDataModel.ModelBase.CategoryType.Server:
+                    QCP.NetworkDataModel.Server server = JsonConvert.DeserializeObject<NetworkDataModel.Server>(e.Message);
+                    if (server.IsAuth == true)
+                    {
+                        //如果本地服务器ID为空,则记录中心服务器分配的ID.
+                        if (Properties.Settings.Default.ServerID == "" || Properties.Settings.Default.ServerID == null)
+                        {
+                            Properties.Settings.Default.ServerID = server.ID;
+                            Properties.Settings.Default.Save();
+                        }
+
+                        this.lableCenterStatus.Text = "Center:Linked";
+
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         void iWebSocketClient_Error(object sender, SuperSocket.ClientEngine.ErrorEventArgs e)
@@ -83,8 +107,19 @@ namespace QCP.Server
         }
 
         void iWebSocketClient_Opened(object sender, EventArgs e)
-        {
-            this.lableCenterStatus.Text = "Center Linked.";
+        {            
+            QCP.NetworkDataModel.Server me = new NetworkDataModel.Server();
+
+            if (Properties.Settings.Default.ServerID == "" || Properties.Settings.Default.ServerID == null)
+            {
+                me.ID = "";
+            }
+            else
+            {
+                me.ID = Properties.Settings.Default.ServerID;
+            }
+
+            iWebSocketClient.Send(string.Format("{0} {1}", "Register", me.ToJson()));            
         }
         #endregion
 

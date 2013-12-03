@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Websocket\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SuperSocket.Common, Version=1.6.0.4, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Websocket\SuperSocket.Common.dll</HintPath>
@@ -68,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command\Register.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QCPServer.cs" />
@@ -91,6 +96,7 @@
     <EmbeddedResource Include="ServerController.resx">
       <DependentUpon>ServerController.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -126,6 +132,10 @@
     <None Include="Resources\035.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\QCP.NetworkDataModel\QCP.NetworkDataModel.csproj">
+      <Project>{f2a0d37d-442c-4b87-8aa3-f78a50a7f099}</Project>
+      <Name>QCP.NetworkDataModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QCP.Tool\QCP.Tool.csproj">
       <Project>{5d5db94d-caee-4f56-97cd-194b435eabd6}</Project>
       <Name>QCP.Tool</Name>

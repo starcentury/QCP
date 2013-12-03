@@ -58,5 +58,17 @@ namespace QCP.Server.Properties {
                 return ((bool)(this["AutoStart"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ServerID {
+            get {
+                return ((string)(this["ServerID"]));
+            }
+            set {
+                this["ServerID"] = value;
+            }
+        }
     }
 }
