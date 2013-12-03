@@ -4,9 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebSocket4Net;
@@ -19,7 +21,7 @@ namespace QCP.Server
         private WebSocket iWebSocketClient;
 
         //连接中心服务器失败后重试的计时器
-        private Timer RetryTimer;
+        private System.Windows.Forms.Timer RetryTimer;
         //在此秒数后开始重试连接中心服务器
         private int RetryAfterSeconds = 30;
         //重试连接的计数
@@ -40,6 +42,7 @@ namespace QCP.Server
             InitializeComponent();
         }
 
+        #region WebSocket
         /// <summary>
         /// 初始化WebSocket客户端,用来连接Center服务器.
         /// </summary>
@@ -58,7 +61,7 @@ namespace QCP.Server
             IsTrying = true;
         }
 
-        void iWebSocketClient_DataReceived(object sender, DataReceivedEventArgs e)
+        void iWebSocketClient_DataReceived(object sender, WebSocket4Net.DataReceivedEventArgs e)
         {
             
         }
@@ -83,6 +86,8 @@ namespace QCP.Server
         {
             this.lableCenterStatus.Text = "Center Linked.";
         }
+        #endregion
+
 
         /// <summary>
         /// 连接到中心服务器
@@ -97,7 +102,7 @@ namespace QCP.Server
         /// </summary>
         private void SetRetryTimer()
         {
-            RetryTimer = new Timer();
+            RetryTimer = new System.Windows.Forms.Timer();
             RetryTimer.Interval = 1000;
             RetryTimer.Tick += RetryTimer_Tick;            
         }
@@ -120,6 +125,7 @@ namespace QCP.Server
                     IsTrying = false;
                     RetryCount++;
                     RetrySecondsTicks = 0;
+                    RetryAfterSeconds = new Random(DateTime.Now.Millisecond).Next(30);//设置下一个重试秒数
                     this.lableCenterStatus.Text = "Retry to connect to center.";                    
                     ConnectToCenter();
                 }
@@ -142,6 +148,8 @@ namespace QCP.Server
             {
                 StartLocalServer();
             }
+
+            StartNetworkPerformance();
         }
 
         private void StartLocalServer()
@@ -209,6 +217,79 @@ namespace QCP.Server
         private void toolStripButtonStop_Click(object sender, EventArgs e)
         {
             StopServer();
+        }
+
+        #region System Performance
+        
+        private Thread ThreadOfNetworkPerformance;
+
+        private void StartNetworkPerformance()
+        {
+            ThreadOfNetworkPerformance = new Thread(NetworkPerformanceResult);
+            ThreadOfNetworkPerformance.Start();
+        }
+
+        private void NetworkPerformanceResult()
+        {
+            while (true)
+            {
+                Thread.Sleep(1000);
+                this.statusStripMain.Invoke(new Action(delegate()
+                {
+                    this.labelNetworkInInfo.Text = "bytes received:" + "k";
+                    this.labelNetworkOutInfo.Text = "bytes sent:" + SystemPerformance.NetworkReciveByte.ToString() + "k";
+                }));
+            }
+        }
+
+        #endregion
+
+        Thread newThread;
+        delegate void SetLabelTextDele(string text);
+        private void ThreadForCpuView(object obj)
+        {
+            PerformanceCounter pcCpuLoad = (PerformanceCounter)obj;
+            //SetLabelTextDele setTextDele = new SetLabelTextDele(SetLabelText);
+            while (true)
+            {
+                Thread.Sleep(200);
+                float cpuLoad = pcCpuLoad.NextValue();
+                //label2.Text = cpuLoad + "%";
+                labelCpuLoad.Text = cpuLoad + "%";
+                this.chart1.Invoke(new Action(delegate()
+                {
+                    if (this.chart1.Series[0].Points.Count == 200)
+                    {
+                        this.chart1.Series[0].Points.RemoveAt(0);
+                    }
+                    this.chart1.Series[0].Points.Add(cpuLoad);
+                }));
+            }
+        }
+
+        private void test()
+        {
+            this.chart1.ChartAreas[0].AxisY.Maximum = 100;
+            this.chart1.ChartAreas[0].AxisY.Minimum = 0;
+            this.chart1.ChartAreas[0].AxisX.Maximum = 200;
+            this.chart1.ChartAreas[0].AxisX.Minimum = 0;            
+            this.chart1.Series[0].BorderWidth = 2;            
+            
+            Process process = Process.GetCurrentProcess();            
+            PerformanceCounter pcCpuLoad = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+            PerformanceCounter pcMemory = new PerformanceCounter("Memory", "Available KBytes");
+
+            pcCpuLoad.NextValue();
+            pcMemory.NextValue();
+
+            ParameterizedThreadStart p = new ParameterizedThreadStart(ThreadForCpuView);
+            newThread = new Thread(ThreadForCpuView);
+            newThread.Start(pcCpuLoad);
+        }
+
+        private void LocalServerController_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ThreadOfNetworkPerformance.Abort();
         }
     }
 }

@@ -30,8 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LocalServerController));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.statusStripMain = new System.Windows.Forms.StatusStrip();
             this.labelStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lableCenterStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.serverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,24 +46,31 @@
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonStart = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonStop = new System.Windows.Forms.ToolStripButton();
-            this.lableCenterStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.notifyIconMain = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStripNotifyIcon = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.startToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.stopToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelCpuLoad = new System.Windows.Forms.ToolStripStatusLabel();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.labelNetworkInInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.labelNetworkOutInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStripMain.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.toolStripMain.SuspendLayout();
             this.contextMenuStripNotifyIcon.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStripMain
             // 
             this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.labelStatus,
-            this.lableCenterStatus});
+            this.lableCenterStatus,
+            this.labelCpuLoad,
+            this.labelNetworkInInfo,
+            this.labelNetworkOutInfo});
             this.statusStripMain.Location = new System.Drawing.Point(0, 404);
             this.statusStripMain.Name = "statusStripMain";
             this.statusStripMain.Size = new System.Drawing.Size(872, 22);
@@ -71,6 +82,12 @@
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(47, 17);
             this.labelStatus.Text = "Ready.";
+            // 
+            // lableCenterStatus
+            // 
+            this.lableCenterStatus.Name = "lableCenterStatus";
+            this.lableCenterStatus.Size = new System.Drawing.Size(85, 17);
+            this.lableCenterStatus.Text = "Center Status";
             // 
             // menuStripMain
             // 
@@ -155,11 +172,6 @@
             this.toolStripButtonStop.Text = "toolStripButton2";
             this.toolStripButtonStop.Click += new System.EventHandler(this.toolStripButtonStop_Click);
             // 
-            // lableCenterStatus
-            // 
-            this.lableCenterStatus.Name = "lableCenterStatus";
-            this.lableCenterStatus.Size = new System.Drawing.Size(0, 17);
-            // 
             // notifyIconMain
             // 
             this.notifyIconMain.ContextMenuStrip = this.contextMenuStripNotifyIcon;
@@ -202,11 +214,53 @@
             this.exitToolStripMenuItem1.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem1.Text = "Exit";
             // 
+            // labelCpuLoad
+            // 
+            this.labelCpuLoad.Name = "labelCpuLoad";
+            this.labelCpuLoad.Size = new System.Drawing.Size(32, 17);
+            this.labelCpuLoad.Text = "CPU";
+            // 
+            // chart1
+            // 
+            this.chart1.BackColor = System.Drawing.Color.Transparent;
+            this.chart1.BorderlineColor = System.Drawing.Color.Empty;
+            chartArea1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(12, 53);
+            this.chart1.Name = "chart1";
+            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Area;
+            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            series1.Legend = "Legend1";
+            series1.LegendText = "CPU";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(848, 337);
+            this.chart1.TabIndex = 3;
+            this.chart1.Text = "chart1";
+            // 
+            // labelNetworkInInfo
+            // 
+            this.labelNetworkInInfo.Name = "labelNetworkInInfo";
+            this.labelNetworkInInfo.Size = new System.Drawing.Size(73, 17);
+            this.labelNetworkInInfo.Text = "Network In";
+            // 
+            // labelNetworkOutInfo
+            // 
+            this.labelNetworkOutInfo.Name = "labelNetworkOutInfo";
+            this.labelNetworkOutInfo.Size = new System.Drawing.Size(83, 17);
+            this.labelNetworkOutInfo.Text = "Network Out";
+            // 
             // LocalServerController
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(872, 426);
+            this.Controls.Add(this.chart1);
             this.Controls.Add(this.toolStripMain);
             this.Controls.Add(this.statusStripMain);
             this.Controls.Add(this.menuStripMain);
@@ -214,6 +268,7 @@
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "LocalServerController";
             this.Text = "LocalServer.Controller";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LocalServerController_FormClosing);
             this.Load += new System.EventHandler(this.LocalServerController_Load);
             this.statusStripMain.ResumeLayout(false);
             this.statusStripMain.PerformLayout();
@@ -222,6 +277,7 @@
             this.toolStripMain.ResumeLayout(false);
             this.toolStripMain.PerformLayout();
             this.contextMenuStripNotifyIcon.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -248,5 +304,9 @@
         private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripStatusLabel labelCpuLoad;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.ToolStripStatusLabel labelNetworkInInfo;
+        private System.Windows.Forms.ToolStripStatusLabel labelNetworkOutInfo;
     }
 }
