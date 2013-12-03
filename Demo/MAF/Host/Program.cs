@@ -46,7 +46,8 @@ namespace MAF
             aaa.lst = new List<ConfigSub>();
             aaa.lst.Add(b1);
             aaa.lst.Add(b2);
-            QCP.Tool.ConfigFileManager.SaveConfig(path, aaa);
+            string filename = "test";
+            QCP.Tool.ConfigFileManager.SaveConfig(path, filename, aaa);
 
 
             AppDomain currentDomain = AppDomain.CurrentDomain;
