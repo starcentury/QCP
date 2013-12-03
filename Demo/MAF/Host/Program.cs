@@ -10,12 +10,48 @@ namespace MAF
 {
     class Program
     {
+        [Serializable]
+        public class ConfigMain
+        {
+            public string Test { get; set; }
+
+            public List<ConfigSub> lst { get; set; }
+
+            public ConfigMain()
+            {
+                
+            }
+        }
+
+        [Serializable]
+        public class ConfigSub
+        {
+            public string A { get; set; }
+            public ConfigSub()
+            {
+                
+            }
+        }
+
+
+
         static void Main(string[] args)
         {
+            string path = Environment.CurrentDirectory;
+
+
+            ConfigMain aaa = new ConfigMain();
+            ConfigSub b1 = new ConfigSub { A = "1" };
+            ConfigSub b2 = new ConfigSub { A = "1" };
+            aaa.lst = new List<ConfigSub>();
+            aaa.lst.Add(b1);
+            aaa.lst.Add(b2);
+            QCP.Tool.ConfigFileManager.SaveConfig(path, aaa);
+
+
             AppDomain currentDomain = AppDomain.CurrentDomain;
             currentDomain.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
 
-            string path = Environment.CurrentDirectory;
             string[] warnings = AddInStore.Update(path);
             foreach (var tmp in warnings)
             {
