@@ -41,7 +41,7 @@ namespace QCP.Data
         }
 
         /// <summary>
-        ///     获取 当前实体的查询数据集
+        /// 获取 当前实体的查询数据集
         /// </summary>
         public virtual IQueryable<TEntity> Entities
         {
