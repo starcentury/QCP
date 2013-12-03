@@ -18,25 +18,25 @@ namespace QCP.Server
 
         public override void Send(string message)
         {
-            SystemPerformance.NetworkReciveByte += message.Length;
+            SystemPerformance.NetworkSendByte += message.Length;
             base.Send(message);
         }
 
         public override void Send(string message, params object[] paramValues)
         {
-            SystemPerformance.NetworkReciveByte += paramValues.Length;
+            SystemPerformance.NetworkSendByte += paramValues.Length;
             base.Send(message, paramValues);
         }
 
         public override void Send(ArraySegment<byte> segment)
         {
-            SystemPerformance.NetworkReciveByte += segment.Count;
+            SystemPerformance.NetworkSendByte += segment.Count;
             base.Send(segment);
         }
 
         public override void Send(byte[] data, int offset, int length)
         {
-            SystemPerformance.NetworkReciveByte += length;
+            SystemPerformance.NetworkSendByte += length;
             base.Send(data, offset, length);
         }
     }

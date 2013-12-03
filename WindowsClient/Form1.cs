@@ -56,5 +56,10 @@ namespace WindowsClient
             this.button1.Enabled = true;
             this.button2.Enabled = false;
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            iWebSocketClient.Send(string.Format("{0} {1}", "Auth", "test message"));
+        }
     }
 }

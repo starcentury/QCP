@@ -225,7 +225,7 @@ namespace QCP.Server
 
         private void StartNetworkPerformance()
         {
-            ThreadOfNetworkPerformance = new Thread(NetworkPerformanceResult);
+            ThreadOfNetworkPerformance = new Thread(NetworkPerformanceResult);            
             ThreadOfNetworkPerformance.Start();
         }
 
@@ -236,8 +236,8 @@ namespace QCP.Server
                 Thread.Sleep(1000);
                 this.statusStripMain.Invoke(new Action(delegate()
                 {
-                    this.labelNetworkInInfo.Text = "bytes received:" + "k";
-                    this.labelNetworkOutInfo.Text = "bytes sent:" + SystemPerformance.NetworkReciveByte.ToString() + "k";
+                    this.labelNetworkInInfo.Text = "bytes received:" + SystemPerformance.NetworkReciveByte.ToString() + "k";
+                    this.labelNetworkOutInfo.Text = "bytes sent:" + SystemPerformance.NetworkSendByte.ToString() + "k";
                 }));
             }
         }

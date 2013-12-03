@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QCP.Message
+namespace QCP.Server
 {
-    public class Class1
+    public static class ServerInfomation
     {
+        public List<string> Client;
     }
 }
