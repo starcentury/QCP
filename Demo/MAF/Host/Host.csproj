@@ -49,6 +49,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\QCP.Tool\QCP.Tool.csproj">
+      <Project>{5d5db94d-caee-4f56-97cd-194b435eabd6}</Project>
+      <Name>QCP.Tool</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HostSideView\HostSideView.csproj">
       <Project>{27b8e11d-c570-4264-ac0a-328b9cfc4103}</Project>
       <Name>HostSideView</Name>
