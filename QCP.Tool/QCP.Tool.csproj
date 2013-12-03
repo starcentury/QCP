@@ -53,6 +53,7 @@
     <Compile Include="Helper\CombHelper.cs" />
     <Compile Include="Helper\PublicHelper.cs" />
     <Compile Include="Helper\StringHelper.cs" />
+    <Compile Include="Manager\ConfigFileManager.cs" />
     <Compile Include="NetTools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
