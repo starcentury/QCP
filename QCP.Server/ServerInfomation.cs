@@ -8,6 +8,6 @@ namespace QCP.Server
 {
     public static class ServerInfomation
     {
-        public List<string> Client;
+        public static List<string> Client;
     }
 }

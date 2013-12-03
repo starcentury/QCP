@@ -10,5 +10,6 @@ namespace QCP.Server
 {
     public class LocalServer : WebSocketServer<LocalServerSession>
     {
+        
     }
 }

@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace QCP.NetworkDataModel
 {
-    public class Client
+    [Serializable]
+    public class Client : ModelBase
     {
         public string Name { get; set; }
-        public bool IsAuth { get; set; }
+        public bool IsAuth { get; set; }       
     }
 }

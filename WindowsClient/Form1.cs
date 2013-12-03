@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebSocket4Net;
 
@@ -16,6 +14,7 @@ namespace WindowsClient
         public Form1()
         {
             InitializeComponent();
+            Control.CheckForIllegalCrossThreadCalls = false;
         }
 
         //WebSocket客户端
@@ -26,26 +25,26 @@ namespace WindowsClient
             iWebSocketClient = new WebSocket("ws://127.0.0.1:2020/");
             iWebSocketClient.Opened += iWebSocketClient_Opened;
             iWebSocketClient.MessageReceived += iWebSocketClient_MessageReceived;
+            iWebSocketClient.DataReceived += iWebSocketClient_DataReceived;
 
             iWebSocketClient.Open();
         }
 
+        void iWebSocketClient_DataReceived(object sender, DataReceivedEventArgs e)
+        {
+            
+        }
+
         void iWebSocketClient_MessageReceived(object sender, MessageReceivedEventArgs e)
         {
-            this.listBox1.Invoke(new Action(delegate()
-            {
-                this.listBox1.Items.Add(e.Message);
-            }));
+            this.listBox1.Items.Add(e.Message);
         }
 
         void iWebSocketClient_Opened(object sender, EventArgs e)
         {
-            this.button1.Invoke(new Action(delegate()
-            {
-                this.button1.Text = "Linked";
-                this.button1.Enabled = false;
-                this.button2.Enabled = true;
-            }));
+            this.button1.Text = "Linked";
+            this.button1.Enabled = false;
+            this.button2.Enabled = true;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -59,7 +58,12 @@ namespace WindowsClient
 
         private void button4_Click(object sender, EventArgs e)
         {
-            iWebSocketClient.Send(string.Format("{0} {1}", "Auth", "test message"));
+            QCP.NetworkDataModel.Client client = new QCP.NetworkDataModel.Client();
+            client.Name = "luy";
+            client.IsAuth = false;
+            //iWebSocketClient.Send(string.Format("{0} {1}", "Auth", client.ToJson()));
+
+            iWebSocketClient.Send(client.ToBytes(), 0, client.ToBytes().Length);
         }
     }
 }

@@ -35,6 +35,10 @@
     <ApplicationIcon>LogoB.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SuperSocket.Common, Version=1.6.0.4, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Websocket\SuperSocket.Common.dll</HintPath>
@@ -120,6 +124,12 @@
     <Content Include="LogoB.ico" />
     <None Include="Resources\media_controls_dark_stop.png" />
     <None Include="Resources\media_controls_dark_play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QCP.NetworkDataModel\QCP.NetworkDataModel.csproj">
+      <Project>{f2a0d37d-442c-4b87-8aa3-f78a50a7f099}</Project>
+      <Name>QCP.NetworkDataModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
