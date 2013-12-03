@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("NetworkDataModel")]
+[assembly: AssemblyTitle("QCP.NetworkDataModel")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("NetworkDataModel")]
+[assembly: AssemblyProduct("QCP.NetworkDataModel")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("f17c4a54-f7bb-419c-bd30-adcafe28d738")]
+[assembly: Guid("7c71e3ef-7904-48a1-a5fa-19a7ca7b06b7")]
 
 // 程序集的版本信息由下面四个值组成:
 //
