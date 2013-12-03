@@ -23,15 +23,21 @@ namespace QCP.Center.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("QCP.Center")]
         public string AppName {
             get {
                 return ((string)(this["AppName"]));
             }
-            set {
-                this["AppName"] = value;
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoStart {
+            get {
+                return ((bool)(this["AutoStart"]));
             }
         }
     }

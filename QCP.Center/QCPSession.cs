@@ -1,4 +1,5 @@
 ﻿using SuperSocket.SocketBase;
+using SuperWebSocket;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace QCP.Center
 {
-    public class QCPSession : AppSession<QCPSession>
+    public class QCPSession : WebSocketSession<QCPSession>
     {
         protected override void OnSessionStarted()
         {
-            base.OnSessionStarted();
+            base.OnSessionStarted();            
         }
     }
 }

@@ -69,7 +69,12 @@ namespace QCP.Center
             //读取网络服务信息
             LoadNetConfig();
             //读取服务器信息
-            LoadServerInfo();            
+            LoadServerInfo();
+
+            if (QCP.Center.Properties.Settings.Default.AutoStart)
+            {
+                StartServer();
+            }
         }        
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -121,7 +126,7 @@ namespace QCP.Center
                 this.startToolStripMenuItem.Enabled = false;                
                 this.stopToolStripMenuItem.Enabled = true;
                 //提示信息
-                this.labelServerStatus.Text = "Running.";                
+                this.labelServerStatus.Text = "Server Running.";                
             }
             else
             {
@@ -130,6 +135,14 @@ namespace QCP.Center
         }
 
         private void buttonStop_Click(object sender, EventArgs e)
+        {
+            StopServer();
+        }
+
+        /// <summary>
+        /// 停止服务器
+        /// </summary>
+        private void StopServer()
         {
             //判断服务器状态,如果正在运行则关闭.
             if (IsRunning)
@@ -140,10 +153,10 @@ namespace QCP.Center
                 this.buttonStart.Enabled = true;
                 this.buttonStop.Enabled = false;
                 //设置任务栏菜单状态
-                this.startToolStripMenuItem.Enabled = true;                
+                this.startToolStripMenuItem.Enabled = true;
                 this.stopToolStripMenuItem.Enabled = false;
                 //提示信息
-                this.labelServerStatus.Text = "Stoped.";                
+                this.labelServerStatus.Text = "Server Stoped.";
 
             }
         }
