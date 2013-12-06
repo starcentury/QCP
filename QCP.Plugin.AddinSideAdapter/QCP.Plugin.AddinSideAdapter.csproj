@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7678ACFB-32F6-4C23-B27C-31362A91BB06}</ProjectGuid>
+    <ProjectGuid>{8B6B9B82-12CA-468E-B850-12A0B1AE5826}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>QCP.IM</RootNamespace>
-    <AssemblyName>QCP.IM</AssemblyName>
+    <RootNamespace>QCP.Plugin.AddinSideAdapter</RootNamespace>
+    <AssemblyName>QCP.Plugin.AddinSideAdapter</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\QCP.Server\bin\Debug\Addins\IMServices\</OutputPath>
+    <OutputPath>..\QCP.Server\bin\Debug\AddInSideAdapters\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.AddIn" />
+    <Reference Include="System.AddIn.Contract" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,14 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IMServices.cs" />
+    <Compile Include="AddinSideAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QCP.Plugin.AddinSideView\QCP.Plugin.AddinSideView.csproj">
       <Project>{7694982d-92b6-4ec0-a7be-4e270117be44}</Project>
       <Name>QCP.Plugin.AddinSideView</Name>
-      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\QCP.Plugin.IContract\QCP.Plugin.IContract.csproj">
+      <Project>{d16f2015-c282-4538-baa2-3757c7440051}</Project>
+      <Name>QCP.Plugin.IContract</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

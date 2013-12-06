@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
+using QCP.Plugin.HostSideView;
 using SuperSocket.SocketBase;
 using SuperSocket.SocketEngine;
 using System;
+using System.AddIn.Hosting;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -143,6 +145,31 @@ namespace QCP.Server
         }
         #endregion
 
+        #region Plugin
+
+        private void LoadPlugin()
+        {
+            string path = Environment.CurrentDirectory;
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+
+            string[] warnings = AddInStore.Update(path);
+
+            //发现  
+            var tokens = AddInStore.FindAddIns(typeof(HostSideView), path);
+
+            foreach (var plugin in tokens)
+            {
+                ListViewItem item = new ListViewItem() { Text = plugin.Name };
+                item.SubItems.Add(plugin.Description);
+                item.SubItems.Add(plugin.Version);
+                item.SubItems.Add(plugin.Publisher);
+                item.SubItems.Add("OFF");
+                item.Tag = plugin;
+                this.listView1.Items.Add(item);
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// 连接到中心服务器
@@ -205,6 +232,8 @@ namespace QCP.Server
             }
 
             StartNetworkPerformance();
+
+            LoadPlugin();
         }
 
         private void StartLocalServer()
@@ -298,53 +327,29 @@ namespace QCP.Server
         }
 
         #endregion
-
-        Thread newThread;
-        delegate void SetLabelTextDele(string text);
-        private void ThreadForCpuView(object obj)
-        {
-            PerformanceCounter pcCpuLoad = (PerformanceCounter)obj;
-            //SetLabelTextDele setTextDele = new SetLabelTextDele(SetLabelText);
-            while (true)
-            {
-                Thread.Sleep(200);
-                float cpuLoad = pcCpuLoad.NextValue();
-                //label2.Text = cpuLoad + "%";
-                labelCpuLoad.Text = cpuLoad + "%";
-                this.chart1.Invoke(new Action(delegate()
-                {
-                    if (this.chart1.Series[0].Points.Count == 200)
-                    {
-                        this.chart1.Series[0].Points.RemoveAt(0);
-                    }
-                    this.chart1.Series[0].Points.Add(cpuLoad);
-                }));
-            }
-        }
-
-        private void test()
-        {
-            this.chart1.ChartAreas[0].AxisY.Maximum = 100;
-            this.chart1.ChartAreas[0].AxisY.Minimum = 0;
-            this.chart1.ChartAreas[0].AxisX.Maximum = 200;
-            this.chart1.ChartAreas[0].AxisX.Minimum = 0;            
-            this.chart1.Series[0].BorderWidth = 2;            
-            
-            Process process = Process.GetCurrentProcess();            
-            PerformanceCounter pcCpuLoad = new PerformanceCounter("Processor", "% Processor Time", "_Total");
-            PerformanceCounter pcMemory = new PerformanceCounter("Memory", "Available KBytes");
-
-            pcCpuLoad.NextValue();
-            pcMemory.NextValue();
-
-            ParameterizedThreadStart p = new ParameterizedThreadStart(ThreadForCpuView);
-            newThread = new Thread(ThreadForCpuView);
-            newThread.Start(pcCpuLoad);
-        }
+        
 
         private void LocalServerController_FormClosing(object sender, FormClosingEventArgs e)
         {
             ThreadOfNetworkPerformance.Abort();
+        }
+
+        private void toolStripButtonStartSelectedPlugin_Click(object sender, EventArgs e)
+        {
+            if (this.listView1.SelectedItems[0] != null)
+            {
+                AddInToken token = this.listView1.SelectedItems[0].Tag as AddInToken;
+
+                //隔离和激活插件  
+                AddInProcess process = new AddInProcess(Platform.X64);                
+
+                process.Start();
+                var addin = token.Activate<HostSideView>(process, AddInSecurityLevel.FullTrust);
+                if (addin.Start())
+                {
+                    this.listView1.SelectedItems[0].SubItems[4].Text = "ON";
+                }
+            }
         }
     }
 }

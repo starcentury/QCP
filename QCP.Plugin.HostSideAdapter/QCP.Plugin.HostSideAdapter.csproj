@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7678ACFB-32F6-4C23-B27C-31362A91BB06}</ProjectGuid>
+    <ProjectGuid>{130ACD15-D3BC-4676-92A9-C663DAB1A40F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>QCP.IM</RootNamespace>
-    <AssemblyName>QCP.IM</AssemblyName>
+    <RootNamespace>QCP.Plugin.HostSideAdapter</RootNamespace>
+    <AssemblyName>QCP.Plugin.HostSideAdapter</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\QCP.Server\bin\Debug\Addins\IMServices\</OutputPath>
+    <OutputPath>..\QCP.Server\bin\Debug\HostSideAdapters\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.AddIn" />
+    <Reference Include="System.AddIn.Contract" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,14 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IMServices.cs" />
+    <Compile Include="HostSideAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\QCP.Plugin.AddinSideView\QCP.Plugin.AddinSideView.csproj">
-      <Project>{7694982d-92b6-4ec0-a7be-4e270117be44}</Project>
-      <Name>QCP.Plugin.AddinSideView</Name>
-      <Private>False</Private>
+    <ProjectReference Include="..\QCP.Plugin.HostSideView\QCP.Plugin.HostSideView.csproj">
+      <Project>{6d4ef627-52ee-4542-bd77-14f705b5abb9}</Project>
+      <Name>QCP.Plugin.HostSideView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QCP.Plugin.IContract\QCP.Plugin.IContract.csproj">
+      <Project>{d16f2015-c282-4538-baa2-3757c7440051}</Project>
+      <Name>QCP.Plugin.IContract</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
