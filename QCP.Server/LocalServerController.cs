@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -119,7 +120,26 @@ namespace QCP.Server
                 me.ID = Properties.Settings.Default.ServerID;
             }
 
-            iWebSocketClient.Send(string.Format("{0} {1}", "Register", me.ToJson()));            
+            StringBuilder sb = new StringBuilder();
+            StringWriter sw = new StringWriter(sb);
+
+            //iWebSocketClient.Send(string.Format("{0} {1}", "Register", me.ToJson()));  
+
+            using (JsonWriter writer = new JsonTextWriter(sw))
+            {
+                writer.Formatting = Formatting.Indented;
+
+                writer.WriteStartObject();
+                writer.WritePropertyName("Name");
+                writer.WriteValue("");
+                writer.WritePropertyName("ID");
+                writer.WriteValue("");
+                writer.WritePropertyName("IsAuth");
+                writer.WriteValue(false);                 
+                writer.WriteEndObject();
+            }
+
+            iWebSocketClient.Send(string.Format("{0} {1}", "Register", sw.ToString()));            
         }
         #endregion
 
@@ -167,7 +187,7 @@ namespace QCP.Server
                 else
                 {
                     RetrySecondsTicks++;
-                    this.lableCenterStatus.Text = "Retry after " + (RetryAfterSeconds - RetrySecondsTicks).ToString() + " Seconds";
+                    this.lableCenterStatus.Text = String.Format("Retry after {0} Seconds", RetryAfterSeconds - RetrySecondsTicks);
                 }
             }
         }
@@ -271,8 +291,8 @@ namespace QCP.Server
                 Thread.Sleep(1000);
                 this.statusStripMain.Invoke(new Action(delegate()
                 {
-                    this.labelNetworkInInfo.Text = "bytes received:" + SystemPerformance.NetworkReciveByte.ToString() + "k";
-                    this.labelNetworkOutInfo.Text = "bytes sent:" + SystemPerformance.NetworkSendByte.ToString() + "k";
+                    this.labelNetworkInInfo.Text = String.Format("bytes received:{0}k", SystemPerformance.NetworkReciveByte);
+                    this.labelNetworkOutInfo.Text = String.Format("bytes sent:{0}k", SystemPerformance.NetworkSendByte);
                 }));
             }
         }
