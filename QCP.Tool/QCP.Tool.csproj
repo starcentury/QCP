@@ -50,6 +50,7 @@
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="FileTools.cs" />
     <Compile Include="Helper\CombHelper.cs" />
     <Compile Include="Helper\PublicHelper.cs" />
     <Compile Include="Helper\StringHelper.cs" />

@@ -12,62 +12,42 @@ namespace QCP.IM
     [AddIn("IMServices", Description = "IM Services", Publisher = "QCP", Version = "1.0.0")]
     public class IMServices : QCP.Plugin.AddinSideView.AddinSideView, IDisposable
     {
-        private string URI = "tcp://localhost:61616/";
-        private string TOPIC = "QCP.IM";
+
+        private string MQName = "QCP.IM";
         private string USERNAME;
-        private string PASSWORD;
-        private IConnectionFactory factory;
-        private IConnection connection;
+        private string PASSWORD;        
         private ISession session;
-        private IMessageProducer producer;
-        
+        private IMessageConsumer m_consumer;
+
         public bool Start()
         {
-            factory = new ConnectionFactory(URI);
-
-            if (USERNAME != "")
+            try
             {
-                connection = factory.CreateConnection(USERNAME, PASSWORD);
+                m_consumer = session.CreateConsumer(new Apache.NMS.ActiveMQ.Commands.ActiveMQTopic(MQName));
+                m_consumer.Listener += m_consumer_Listener;
+                return true;
             }
-            else
+            catch
             {
-                connection = factory.CreateConnection();
-            }
-            connection.Start();
-            session = connection.CreateSession();
-
-            CreateProducer(true);
-            return true;
-        }
-
-        private void CreateProducer(bool blnTopic)
-        {
-            if (blnTopic)
-            {
-                producer = session.CreateProducer(new Apache.NMS.ActiveMQ.Commands.ActiveMQTopic(TOPIC));
-            }
-            else
-            {
-                producer = session.CreateProducer(new Apache.NMS.ActiveMQ.Commands.ActiveMQQueue(TOPIC));
+                return false;
             }
         }
 
-        public void SendMQMessage(string strText)
+        void m_consumer_Listener(IMessage message)
         {
-            ITextMessage msg = producer.CreateTextMessage();
-            msg.Text = strText;
-            producer.Send(msg, Apache.NMS.MsgDeliveryMode.NonPersistent, Apache.NMS.MsgPriority.Normal, TimeSpan.MinValue);
-        }
 
-        public void SendMQMessage(object obj)
-        {
-            IObjectMessage msg = producer.CreateObjectMessage(obj);
-            producer.Send(msg, Apache.NMS.MsgDeliveryMode.NonPersistent, Apache.NMS.MsgPriority.Normal, TimeSpan.MinValue);
         }
 
         public void Dispose()
         {
 
+        }
+
+
+        public ISession MQSession
+        {
+            get { return session; }
+            set { session = value; }
         }
     }
 }

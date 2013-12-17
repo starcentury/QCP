@@ -11,6 +11,12 @@ namespace QCP.Message
         public enum MessageTypeName
         {
             Auth = 0000,
+            Storage = 0001,
+            //文件传输消息类别 从1000开始
+            RequestToTransferFileMessage = 1000,
+            ApplyToTransferFileMessage = 1001,
+            FileDataMessage = 1002,
+            FileTransferComplete = 1003,
         }
     }
 }

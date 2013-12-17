@@ -21,7 +21,14 @@ namespace QCP.Plugin.HostSideAdapter
 
         public bool Start()
         {
-            return this._contract.Start();
+            try
+            {
+                return this._contract.Start();
+            }
+            catch
+            {                
+                throw;
+            }            
         }
 
         public void Dispose()

@@ -57,8 +57,8 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.toolStripButtonStartSelectedPlugin = new System.Windows.Forms.ToolStripButton();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.statusStripMain.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.toolStripMain.SuspendLayout();
@@ -165,7 +165,7 @@
             this.toolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonStart,
             this.toolStripButtonStop,
-            this.toolStripButtonStartSelectedPlugin});
+            this.toolStripButton1});
             this.toolStripMain.Location = new System.Drawing.Point(0, 25);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Size = new System.Drawing.Size(872, 25);
@@ -271,19 +271,19 @@
             this.columnHeader4.Text = "发布者";
             this.columnHeader4.Width = 120;
             // 
-            // toolStripButtonStartSelectedPlugin
-            // 
-            this.toolStripButtonStartSelectedPlugin.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonStartSelectedPlugin.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonStartSelectedPlugin.Image")));
-            this.toolStripButtonStartSelectedPlugin.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonStartSelectedPlugin.Name = "toolStripButtonStartSelectedPlugin";
-            this.toolStripButtonStartSelectedPlugin.Size = new System.Drawing.Size(78, 22);
-            this.toolStripButtonStartSelectedPlugin.Text = "Start Plugin";
-            this.toolStripButtonStartSelectedPlugin.Click += new System.EventHandler(this.toolStripButtonStartSelectedPlugin_Click);
-            // 
             // columnHeader5
             // 
             this.columnHeader5.Text = "Status";
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // LocalServerController
             // 
@@ -341,7 +341,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ToolStripButton toolStripButtonStartSelectedPlugin;
         private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }

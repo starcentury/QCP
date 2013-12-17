@@ -10,6 +10,6 @@ namespace QCP.Plugin.AddinSideView
     [AddInBase()]
     public interface AddinSideView
     {
-        bool Start();
+        bool Start();        
     }
 }

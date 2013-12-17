@@ -12,9 +12,9 @@ namespace QCP.Server
     {
         protected override void OnSessionStarted()
         {
-            this.Send("Hello from local server.");
+            //this.Send("Hello from local server.");
             base.OnSessionStarted();
-        }
+        }       
 
         public override void Send(string message)
         {

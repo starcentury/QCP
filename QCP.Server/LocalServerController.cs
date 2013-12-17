@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Apache.NMS;
+using Apache.NMS.ActiveMQ;
+using Newtonsoft.Json;
 using QCP.Plugin.HostSideView;
 using SuperSocket.SocketBase;
 using SuperSocket.SocketEngine;
@@ -52,7 +54,7 @@ namespace QCP.Server
         /// </summary>
         private void InitializationWebSocketClient()
         {
-            iWebSocketClient = new WebSocket("ws://" + QCP.Server.Properties.Settings.Default.CenterURI + ":" + QCP.Server.Properties.Settings.Default.CenterPort.ToString() + "/");
+            iWebSocketClient = new WebSocket(String.Format("ws://{0}:{1}/", QCP.Server.Properties.Settings.Default.CenterURI, QCP.Server.Properties.Settings.Default.CenterPort));
             iWebSocketClient.Opened += iWebSocketClient_Opened;
             iWebSocketClient.Error += iWebSocketClient_Error;
             iWebSocketClient.MessageReceived += iWebSocketClient_MessageReceived;
@@ -143,7 +145,7 @@ namespace QCP.Server
 
             iWebSocketClient.Send(string.Format("{0} {1}", "Register", sw.ToString()));            
         }
-        #endregion
+        #endregion        
 
         #region Plugin
 
@@ -165,7 +167,24 @@ namespace QCP.Server
                 item.SubItems.Add(plugin.Publisher);
                 item.SubItems.Add("OFF");
                 item.Tag = plugin;
-                this.listView1.Items.Add(item);
+                
+                //隔离和激活插件  
+                AddInProcess process = new AddInProcess(Platform.X64);
+                
+                process.Start();
+
+                HostSideView addin = plugin.Activate<HostSideView>(process, AddInSecurityLevel.FullTrust);
+                
+                if (addin.Start())
+                {                    
+                    item.SubItems[4].Text = "ON";
+                }
+                else
+                {
+                    item.SubItems[4].Text = "Error";
+                }
+
+                this.listView1.Items.Add(item);                
             }
         }
 
@@ -232,8 +251,8 @@ namespace QCP.Server
             }
 
             StartNetworkPerformance();
-
-            LoadPlugin();
+            
+            LoadPlugin();            
         }
 
         private void StartLocalServer()
@@ -252,6 +271,8 @@ namespace QCP.Server
                 this.stopToolStripMenuItem.Enabled = true;
                 //提示信息
                 this.labelStatus.Text = "Server Running.";
+
+                Managers.iFileTransferManager = new Manager.FileTransferManager(bootstrap.AppServers.First() as LocalServer);
             }
             else
             {
@@ -334,22 +355,10 @@ namespace QCP.Server
             ThreadOfNetworkPerformance.Abort();
         }
 
-        private void toolStripButtonStartSelectedPlugin_Click(object sender, EventArgs e)
+        private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            if (this.listView1.SelectedItems[0] != null)
-            {
-                AddInToken token = this.listView1.SelectedItems[0].Tag as AddInToken;
-
-                //隔离和激活插件  
-                AddInProcess process = new AddInProcess(Platform.X64);                
-
-                process.Start();
-                var addin = token.Activate<HostSideView>(process, AddInSecurityLevel.FullTrust);
-                if (addin.Start())
-                {
-                    this.listView1.SelectedItems[0].SubItems[4].Text = "ON";
-                }
-            }
-        }
+            string a = "test";
+            object b = (object)a;
+        }        
     }
 }

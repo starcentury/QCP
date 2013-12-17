@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\QCP.Server\bin\Debug\Addins\StorageServices\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -30,8 +30,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Apache.NMS">
+      <HintPath>..\packages\Apache.NMS.1.6.0\lib\net40\Apache.NMS.dll</HintPath>
+    </Reference>
+    <Reference Include="Apache.NMS.ActiveMQ">
+      <HintPath>..\packages\Apache.NMS.ActiveMQ.1.6.0\lib\net40\Apache.NMS.ActiveMQ.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\packages\Mongodb.1.7.1.4791\lib\net40\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\packages\Mongodb.1.7.1.4791\lib\net40\MongoDB.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.AddIn" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,8 +53,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StorageServices.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QCP.Message\QCP.Message.csproj">
+      <Project>{84f1b27c-cee4-4d4f-9792-3c4a9df8f621}</Project>
+      <Name>QCP.Message</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QCP.MQ\QCP.MQ.csproj">
+      <Project>{d44a39c7-08f2-4466-ae38-0931de8a1064}</Project>
+      <Name>QCP.MQ</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QCP.Plugin.AddinSideView\QCP.Plugin.AddinSideView.csproj">
+      <Project>{7694982d-92b6-4ec0-a7be-4e270117be44}</Project>
+      <Name>QCP.Plugin.AddinSideView</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
