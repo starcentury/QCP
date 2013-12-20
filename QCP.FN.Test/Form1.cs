@@ -258,6 +258,30 @@ namespace QCP.FN.Test
         {
             TransFiles = new List<RequestToTransferFileMessage>();
             iRabbitMQServices.OnMessage+=iRabbitMQServices_OnMessage;
+            iRabbitMQServices3.OnMessage += iRabbitMQServices3_OnMessage;
+            iRabbitMQServices5.OnMessage += iRabbitMQServices5_OnMessage;
+        }
+
+        void iRabbitMQServices5_OnMessage(string message)
+        {
+            QCP.Message.RequestToTransferFileMessage msg = JsonConvert.DeserializeObject<QCP.Message.RequestToTransferFileMessage>(message);
+            j++;
+            this.listView2.Invoke(new Action(delegate()
+            {
+                this.listView2.Items[2].SubItems[1].Text = j.ToString();
+                this.listView2.Items[2].SubItems[2].Text = msg.FileID;
+            })); 
+        }
+
+        void iRabbitMQServices3_OnMessage(string message)
+        {
+            QCP.Message.RequestToTransferFileMessage msg = JsonConvert.DeserializeObject<QCP.Message.RequestToTransferFileMessage>(message);
+            m++;
+            this.listView2.Invoke(new Action(delegate()
+            {
+                this.listView2.Items[1].SubItems[1].Text = m.ToString();
+                this.listView2.Items[1].SubItems[2].Text = msg.FileID;
+            }));           
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -266,25 +290,70 @@ namespace QCP.FN.Test
         }
 
         private QCP.MQ.RabbitMQServices iRabbitMQServices = new MQ.RabbitMQServices("QCP.Storage");
+        private QCP.MQ.RabbitMQServices iRabbitMQServices2 = new MQ.RabbitMQServices("QCP.Storage");
+        private QCP.MQ.RabbitMQServices iRabbitMQServices3 = new MQ.RabbitMQServices("QCP.Data");
+        private QCP.MQ.RabbitMQServices iRabbitMQServices5 = new MQ.RabbitMQServices("QCP.Data");
+        private QCP.MQ.RabbitMQServices iRabbitMQServices4 = new MQ.RabbitMQServices("QCP.Data");
+        private int i, j, k, m, n;
+        private Thread SendThread;
 
         private void button4_Click(object sender, EventArgs e)
         {
             iRabbitMQServices.StartGetMessage();
+            iRabbitMQServices3.StartGetMessage();
+            iRabbitMQServices5.StartGetMessage();    
+        }
+
+        private async void CallGetMessageAsync()
+        {
+            string result = await iRabbitMQServices.GetMessageAsync();
         }
 
         void iRabbitMQServices_OnMessage(string message)
-        {
-            MessageBox.Show(message);
+        {            
+            QCP.Message.RequestToTransferFileMessage msg = JsonConvert.DeserializeObject<QCP.Message.RequestToTransferFileMessage>(message);
+         k++;
+            this.listView2.Invoke(new Action(delegate()
+            {
+                this.listView2.Items[0].SubItems[1].Text = k.ToString();
+                this.listView2.Items[0].SubItems[2].Text = msg.FileID;
+            }));
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            iRabbitMQServices.SendMessage("Hello Rabbit!");
+            SendThread = new Thread(SendMessage);
+            SendThread.Start();
+        }
+
+        private void SendMessage()
+        {
+            while (true)
+            {
+                QCP.Message.RequestToTransferFileMessage msg = new RequestToTransferFileMessage() { FileID = Guid.NewGuid().ToString() };
+                string msgSend = JsonConvert.SerializeObject(msg);
+                iRabbitMQServices2.SendMessage(msgSend);
+                iRabbitMQServices4.SendMessage(msgSend);
+                i++;
+                n++;
+                this.listView2.Invoke(new Action(delegate()
+                {
+                    this.listView2.Items[0].Text = i.ToString();
+                    this.listView2.Items[1].Text = n.ToString();
+                    this.listView2.Items[2].Text = n.ToString();
+                }));
+
+                Thread.Sleep(1);
+            }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            iRabbitMQServices.Stop();            
+            iRabbitMQServices.Stop();
+            iRabbitMQServices2.Stop();
+            iRabbitMQServices3.Stop();
+            iRabbitMQServices4.Stop();
+            iRabbitMQServices5.Stop();
         }
 
         private void button6_Click(object sender, EventArgs e)

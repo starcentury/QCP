@@ -37,7 +37,7 @@ namespace QCP.Server.Manager
 
         void msg_FileRecived(string sessionID, string fileID, string path)
         {            
-            iRabbitMQServices.SendMessage(path);            
+            iRabbitMQServices.SendMessage("QCP.Storage", path);
         }
 
         public void Dispose()

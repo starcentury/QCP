@@ -2,17 +2,21 @@
 using Apache.NMS.ActiveMQ;
 using Newtonsoft.Json;
 using QCP.Plugin.HostSideView;
+using QCP.Server.Manager;
 using SuperSocket.SocketBase;
 using SuperSocket.SocketEngine;
 using System;
 using System.AddIn.Hosting;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -170,8 +174,16 @@ namespace QCP.Server
                 
                 //隔离和激活插件  
                 AddInProcess process = new AddInProcess(Platform.X64);
-                
-                process.Start();
+
+                try
+                {
+                    process.Start();
+                }
+                catch (Exception)
+                {
+                    
+                    throw;
+                }                
 
                 HostSideView addin = plugin.Activate<HostSideView>(process, AddInSecurityLevel.FullTrust);
                 
@@ -238,6 +250,43 @@ namespace QCP.Server
             }
         }
 
+        [ImportMany(AllowRecomposition = true)]
+        IEnumerable<IPlugin.IPlugin> MyControls { get; set; }
+
+        private void LoadMEFPlugins()
+        {
+            string myPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            DirectoryCatalog pluginCatalog = new DirectoryCatalog(myPath + "/Plugins");
+            CompositionContainer exportContainer = new CompositionContainer(pluginCatalog);
+            CompositionBatch compBatch = new CompositionBatch();
+            compBatch.AddPart(this);
+            compBatch.AddPart(pluginCatalog);
+            exportContainer.Compose(compBatch);
+
+            foreach (var v in MyControls)
+            {
+                if (v.Start())
+                {
+                    
+                }
+            }
+
+        }
+
+        private QCP.MQ.RabbitMQServices iRabbitMQServices;
+
+        private void InitMQServices()
+        {
+            iRabbitMQServices = new MQ.RabbitMQServices("QCP.System");
+            iRabbitMQServices.OnMessage += iRabbitMQServices_OnMessage;
+            iRabbitMQServices.StartGetMessage();
+        }
+
+        void iRabbitMQServices_OnMessage(string message)
+        {
+            MessageBox.Show(message);
+        }
+
         private void LocalServerController_Load(object sender, EventArgs e)
         {            
             InitializationWebSocketClient();
@@ -251,8 +300,10 @@ namespace QCP.Server
             }
 
             StartNetworkPerformance();
-            
-            LoadPlugin();            
+
+            InitMQServices();
+            //LoadPlugin();
+            LoadMEFPlugins();          
         }
 
         private void StartLocalServer()
@@ -353,6 +404,7 @@ namespace QCP.Server
         private void LocalServerController_FormClosing(object sender, FormClosingEventArgs e)
         {
             ThreadOfNetworkPerformance.Abort();
+            iRabbitMQServices.Stop();
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)

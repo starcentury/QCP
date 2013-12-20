@@ -68,6 +68,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.AddIn" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
@@ -98,6 +99,7 @@
     <Compile Include="LocalServerSession.cs" />
     <Compile Include="Managers.cs" />
     <Compile Include="Manager\FileTransferManager.cs" />
+    <Compile Include="Manager\MQManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerInfomation.cs" />
@@ -145,6 +147,10 @@
     <None Include="Resources\media_controls_dark_play.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IPlugin\IPlugin.csproj">
+      <Project>{6a9a6f2a-542e-4d54-809b-b7986e16a5f5}</Project>
+      <Name>IPlugin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QCP.Message\QCP.Message.csproj">
       <Project>{84f1b27c-cee4-4d4f-9792-3c4a9df8f621}</Project>
       <Name>QCP.Message</Name>

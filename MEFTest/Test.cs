@@ -1,43 +1,43 @@
-﻿using Apache.NMS;
-using Apache.NMS.ActiveMQ;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
-using QCP.Message;
 using QCP.MQ;
 using System;
-using System.AddIn;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace QCP.Storage
+namespace MEFTest
 {
-    [AddIn("StorageServices", Description = "Storage Services", Publisher = "QCP", Version = "1.0.0")]
-    public class StorageServices : QCP.Plugin.AddinSideView.AddinSideView, IDisposable
-    {        
-        private MongoDatabase mydb;
+    [Export(typeof(IPlugin.IPlugin))]
+    public class Test : IPlugin.IPlugin, IDisposable
+    {
         private RabbitMQServices iRabbitMQServices;
+        private RabbitMQServices iDataRabbitMQServices;
+        private MongoDatabase mydb;
+
+        public void Dispose()
+        {
+            if (iRabbitMQServices != null)
+            {
+                iRabbitMQServices.Dispose();
+                iRabbitMQServices = null;
+            }
+        }
 
         public bool Start()
         {
-            try
-            {
-                iRabbitMQServices = new RabbitMQServices("QCP.Storage");
-                iRabbitMQServices.OnMessage += iRabbitMQServices_OnMessage;
-                iRabbitMQServices.StartGetMessage();
-                return true;
-            }
-            catch
-            {                
-                return false;
-            }
+            //iRabbitMQServices = new RabbitMQServices("QCP.Storage");
+            //iRabbitMQServices.OnMessage += iRabbitMQServices_OnMessage;
+            //iRabbitMQServices.StartGetMessage();
+            //iDataRabbitMQServices = new RabbitMQServices("QCP.Data");
+            return true;
         }
 
         void iRabbitMQServices_OnMessage(string message)
         {
-            MessageBox.Show(message);
             try
             {
                 if (message != "")
@@ -71,17 +71,13 @@ namespace QCP.Storage
                     //将本地文件上传到mongoDB中去,以默认块的大小256KB对文件进行分块
                     MongoGridFSFileInfo info = gridfs.Upload(localFileName, mongoDBFileName);
 
-                    iRabbitMQServices.SendMessage("QCP.Data", info.Id.ToString());
+                    //iDataRabbitMQServices.SendMessage("QCP.Data", info.Id.ToString());
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-        }
-
-        public void Dispose()
-        {
         }
     }
 }

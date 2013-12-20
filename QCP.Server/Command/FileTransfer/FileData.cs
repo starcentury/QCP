@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace QCP.Server.Command.FileTransfer
@@ -19,10 +20,12 @@ namespace QCP.Server.Command.FileTransfer
 
             if (msg != null)
             {
-                if (Managers.iFileTransferManager.TransferFiles.Where(l => l.FileID == msg.FileID).FirstOrDefault() != null)
-                {
-                    Managers.iFileTransferManager.TransferFiles.Where(l => l.FileID == msg.FileID).FirstOrDefault().AddData(msg.Data);
-                }
+                Mutex mUnique = new Mutex(false, "WriteFile");
+                mUnique.WaitOne();
+                FileStream fs = new FileStream("e:\\" + msg.FileID, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
+                fs.Write(msg.Data, 0, msg.Data.Length);
+                fs.Close();
+                mUnique.ReleaseMutex();
             }
         }
     }
